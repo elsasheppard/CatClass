@@ -1,0 +1,152 @@
+'''
+Basil Sheppard
+
+10.1:        
+
+Credits:    https://www.geeksforgeeks.org/print-without-newline-python/
+'''
+
+# I felt really sick while I wrote this, so if you could grade a little softer that would really be appreciated :,)
+
+import time
+
+class Cat:
+    # class attribute
+    animal_type = "cat"
+    # set data attributes
+    def __init__(self, name, breed, owner = None, has_dew_claws = False, catchphrase = None):
+        self.__name = name
+        self.__breed = breed
+        self.__owner = owner
+        self.__has_dew_claws = has_dew_claws
+        self.__catchphrase = catchphrase
+    
+    def get_name(self):
+        return self.__name
+
+    def get_breed(self):
+        return self.__breed
+
+    def get_owner(self):
+        return self.__owner
+
+    def say_catchphrase(self):
+        return self.__catchphrase
+
+    def set_owner(self, name):
+        self.__owner = name
+    
+    # checks if __has_dew_claws (aka two extra toes) is true
+    # if true: 18 toes, else 16
+    def get_num_beans(self):
+        if self.__has_dew_claws:
+            self.__num_beans = 18
+        else:
+            self.__num_beans = 16
+        return self.__num_beans
+
+    # prints out descriptive flavor text using class and data attributes
+    def speak(self):
+        if self.__catchphrase != None:
+            print(self.__catchphrase, end=" ")
+        print(f"I'm a {self.animal_type} and my name is {self.__name}!", end=" ")
+        print(f"I'm a {self.__breed},", end=" ")
+        if self.__owner == None:
+            print("and I belong to no one!", end=" ")
+        else:
+            print(f"and I belong to {self.__owner}.", end=" ")
+        print(f"I have {self.get_num_beans()} toe beans!")
+    
+    # play with cat
+    def play(self):
+        print(f"Time to play with {self.__name}!")
+        time.sleep(1)
+        print("Avaliable inputs: pet, feed, play, exit")
+
+        been_pet = False
+        been_fed = False
+        
+        while True:
+            print
+            command = input(">>> ")
+
+            # pet cat (can only do once)
+            if command == "pet":
+                if been_pet == False:
+                    print(f"You pet {self.__name}!")
+                    time.sleep(1)
+                    print(f"{self.__name} has had enough pets for now.")
+                    been_pet = True
+                else:
+                    print(f"{self.__name} doesn't want any more pets.")
+                    
+            # feed cat (can only do once)
+            elif command == "feed":
+                if been_fed == False:
+                    print(f"You pour a bowl of kibble and bits for {self.__name}.")
+                    time.sleep(1)
+                    print("They might eat it.")
+                    been_fed = True
+                else:
+                    print(f"{self.__name}'s bowl already has food in it!")
+
+            # play with cat
+            elif command == "play":
+                print(f"Toys in {self.__name}'s box: mouse, yarn, box")
+
+                while True:
+                    play_command = input("  >>> ")
+                    # play with mouse
+                    if play_command == "mouse":
+                        print(f"You pick the mouse out of the box. {self.__name} stares intently at you.")
+                        time.sleep(2)
+                        print(f"You wiggle the mouse on the ground by its tail. {self.__name} swats at it a couple of times.")
+                        time.sleep(3)
+                        print(f"{self.__name} pounces on the mouse! With a furious shake of their head, the mouse is reduced to stuffing and fabric.")
+                        time.sleep(3)
+                        print("Oh well.")
+                        break
+                    # play with yarn
+                    elif play_command == "yarn":
+                        print(f"You toss a ball of pink yard at {self.__name}. They bat it with their front paws and roll it around for a while.")
+                        time.sleep(2)
+                        print(f"It's not long before {self.__name} is wrapped in remnants of a ball of yarn.")
+                        time.sleep(2)
+                        print(f"You unwrap {self.__name}.")
+                        break
+                    # play with box
+                    elif play_command == "box":
+                        print(f"You dump all the toys out of {self.__name}'s box and set it on the ground empty.")
+                        time.sleep(2)
+                        print(f"It doesn't take long before the box is filled with {self.__name}.")
+                        time.sleep(2)
+                        print(f"{self.__name} seems satisfied.")
+                        break
+                    # error handling
+                    else:
+                        print("Invalid input.")
+
+            # prints commands again
+            elif command == "help":
+                print("Avaliable inputs: pet, feed, play, exit")
+                
+            # exit shell
+            elif command == "exit":
+                print(f"Playtime is over! {self.__name} meows at you happily.")
+                break
+
+            # invalid command
+            else:
+                print("Invalid input.")
+ 
+def main():
+    # test code
+    beans = Cat("Beans", "tuxedo cat", None, True, "Meow!")
+    # set owner data attribute to parameter given
+    beans.set_owner("Basil")
+    beans.speak()
+    # starts play shell
+    beans.play()
+
+if __name__ == "__main__":
+    main()
